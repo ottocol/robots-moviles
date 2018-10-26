@@ -1,15 +1,18 @@
 
 # Robots móviles
-# SLAM
+## SLAM (Mapeado y Localización Simultáneos)
 
 
 ---
 
-## SLAM
+# Índice
 ## Introducción al problema del SLAM
+## SLAM basado en EKF
+## SLAM con filtros de partículas
 
 ---
 
+<!-- .slide: data-background-image="imag_intro_slam/oeuf-poulet.jpg" data-background-opacity="0.1"-->
 
 **Mapeado** y **localización** dependen el uno del otro
 
@@ -20,7 +23,7 @@
 
 ## SLAM (Simultaneous Localization And Mapping)
 
-Resolver los dos problemas **simultáneamente**
+Idea: resolver los dos problemas **simultáneamente**
 
 ---
 
@@ -31,12 +34,14 @@ Notas:
 
 - (a) Al comienzo, la incertidumbre en la posición del robot es 0. Desde aquí el robot observa un *landmark* cuya posición tendrá una incertidumbre asociada al modelo de error del sensor
 - (b) Conforme el robot se va moviendo, la incertidumbre en su posición crece según el modelo de error de la odometría.
-- (c) Cuando el robot observa nuevos *landmarks* la incertidumbre de su posición es mayor que en (a) ya que es una combinación de la incertidumbre en la localización más la del sensor. Es decir, *la incertidumbre del mapa se correlaciona con la del robot*. 
+- (c) Cuando el robot observa nuevos *landmarks* la incertidumbre de su posición es mayor que en (a) ya que es una combinación de la incertidumbre en la localización más la del sensor. Es decir, *la incertidumbre del mapa y del robot están correlacionadas*. 
 - (e) Cuando el robot observa *landmarks* con una posición más precisa (por ejemplo porque los ha observado al comienzo), la incertidumbre en su propia localización *decrece*. Además el mapa entero se actualiza y la incertidumbre de todos los *landmarks* vistos previamente también decrece.  Esto se conoce en SLAM como **cerrar el ciclo** (*closing the loop*)
 
 ---
 
-![inline](imag_intro_slam/SLAM_graph_model.png)
+![](imag_intro_slam/SLAM_graph_model.png) <!-- .element: class="stretch" -->
+
+---
 
 - $x_1,...x_t$ son las posiciones del robot
 - $m$ es el mapa, típicamente formado por *landmarks*
@@ -64,13 +69,13 @@ $$
 
 ## Algunos algoritmos
 
-- *Filtering*
+- *Online SLAM* (estimar $(x_t,m)$)
     + EKF SLAM
-    + Filtros de partículas "Rao-Blackwellizados" 
+    + Filtros de partículas "Rao-Blackwellizados" (explícitamente solo mantienen $x_t$)
 
-- *Smoothing*
+- *Full SLAM* (estimar $(x_{1:t},m)$)
     + Graph SLAM
-    
+    + Filtros de partículas "Rao-Blackwellizados" (podemos recuperar $x_{1:t-1}$)
 
 ---
 
@@ -79,9 +84,13 @@ $$
 
 ---
 
-El mismo algoritmo EKF que usábamos para localización, pero ahora en el estado tendremos, además de la **posición** del robot, también la de los **landmarks**, es decir tiene “dos partes” $\mu_t = (x_t, m)$
+El mismo algoritmo EKF que usábamos para localización, pero ahora en el estado tendremos, además de la **posición** del robot, también la de los **landmarks**
 
-![](estado_EKFSLAM.png)
+ $$\mu_t = (x_t, m),  \Sigma_t=\begin{bmatrix} \Sigma_{RR} & \Sigma_{RM} \\\ \Sigma_{MR} & \Sigma_{MM}\end{bmatrix}$$
+
+![](imag_intro_slam/estado_ekf_slam.png)
+
+Notas:
 
 **Dimensionalidad**: En el caso de un mapa bidimensional con N landmarks puntuales, tendremos una dimensión de 3 + 2N (x,y,*theta*) robot + (x,y) para cada landmark
 
@@ -123,21 +132,29 @@ $$\bar \mu_1=\begin{bmatrix}x\\\ y\\\  \theta\end{bmatrix}= \begin{bmatrix}0\\\ 
 
 ## Predicción
 
-Solo se actualiza la parte en la que intervienen las coordenadas del robot (ya que se supone el mapa estático). Por esto la actualización se puede implementar con coste *lineal* con el número de *landmarks*.
+Solo se actualiza la parte en la que intervienen las coordenadas del robot (ya que se supone el mapa estático). 
 
- ![](correccion_ekf_slam.png)
+Siendo ingeniosos, la actualización se puede implementar con coste *lineal* con el número de *landmarks*.
+
+ ![](imag_intro_slam/prediccion_ekf_slam.png)
 
 ---
 
 ## Corrección
 
-- La ganancia K implica **toda la matriz de covarianza**, y eso hace que cambie la correlación entre la posición del robot y la de los landmarks.
+- La ganancia **K** implica **toda la matriz de covarianza**, y eso hace que cambien todas las correlaciones
+- Es decir, el EKF **mantiene de forma explícita las correlaciones entre la posición del robot y la de los landmarks** (y también de los landmarks entre sí)
+
+![](imag_intro_slam/correlation_matrix_ekf.png) <!-- .element: class="stretch" -->
 
 ---
 
-## Nuevo landmark
+## Cierre del ciclo
 
-Cada vez que detectamos un nuevo landmark añadimos una fila al vector de estado y una fila y una columna a la matriz de covarianzas
+como se mantienen explícitamente las correlaciones, al **cerrar el ciclo** se actualizan todas "automáticamente", reduciendo la incertidumbre de todos los *landmarks*.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/y7OnimZRj2w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 
 ---
 
@@ -176,6 +193,7 @@ Por ciertas propiedades básicas de la probabilidad condicional, podemos hacer
 $$P(x_{1:t},l_{1:m} | z_{1:t}, u_{0,t-1}) = $$
 $$ P(x_{1:t}|z_{1:t}, u_{0,t-1}) P(l_{1:m}|x_{1:t},z_{1:t})$$
 
+
 Sobre esto podemos aplicar un filtro de partículas "Rao-Blackwellizado": aplicar partículas sobre una parte del problema y un método analítico (por ejemplo un EKF) sobre la otra 
 
 ---
@@ -191,7 +209,7 @@ Suponiendo conocidas las poses del robot, $x_{1:t}$, las posiciones de los *land
 
 $$P(x_{1:t},l_{1:m} | z_{1:t}, u_{0,t-1}) = $$ 
 $$ P(x_{1:t}|z_{1:t}, u_{0,t-1}) P(l_{1:m}|x_{1:t},z_{1:t}) = $$
-$$ P(x_{1:t}|z_{1:t}, u_{0,t-1}) \prod_{i=1}^M P(l_i|x_{1:t},z_{1:t})$$
+$$ P(x_{1:t}|z_{1:t}, u_{0,t-1}) \prod_{i=1}^M P(l_i|x_{1:t},z_{1:t})$$ (al ser los $l_i$ independientes)
 
 ---
 
@@ -247,5 +265,6 @@ La extensión del algoritmo es bastante directa:
 Cosas que faltan por ver (o quizá se pueden obviar)
 
 - El problema de la asociación de datos
-- FastSLAM 2.0 vs 1.0
 - Inicializar landmarks en los distintos algoritmos
+- FastSLAM 2.0 vs 1.0
+- Que el GMapping en realidad es un FastSLAM
