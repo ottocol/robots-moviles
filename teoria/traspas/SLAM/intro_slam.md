@@ -1,14 +1,22 @@
+<!-- .slide: class="titulo" -->
 
-# Robots móviles
-## SLAM (Mapeado y Localización Simultáneos)
 
+# Robots móviles <!-- .element: class="column half" -->
+
+## SLAM (Mapeado y Localización Simultáneos) <!-- .element: class="column half" -->
 
 ---
 
-# Índice
-## Introducción al problema del SLAM
-## SLAM basado en EKF
-## SLAM con filtros de partículas
+<!-- .slide: class="titulo" -->
+
+# Índice <!-- .element: class="column half" -->
+
+<div class="column half">
+<h2>Introducción al problema del SLAM </h2>
+<h2>SLAM basado en EKF</h2>
+<h2>SLAM con filtros de partículas</h2>
+</div>
+
 
 ---
 
@@ -28,6 +36,15 @@ Idea: resolver los dos problemas **simultáneamente**
 ---
 
 
+Aplicaciones del SLAM
+
+- iRobot 980 VSLAM
+- LG HomBot https://www.youtube.com/watch?v=UANWyiDf3hA
+
+
+---
+
+
 ![](imag_intro_slam/slam.png)
 
 Notas:
@@ -38,6 +55,19 @@ Notas:
 - (e) Cuando el robot observa *landmarks* con una posición más precisa (por ejemplo porque los ha observado al comienzo), la incertidumbre en su propia localización *decrece*. Además el mapa entero se actualiza y la incertidumbre de todos los *landmarks* vistos previamente también decrece.  Esto se conoce en SLAM como **cerrar el ciclo** (*closing the loop*)
 
 ---
+
+## El problema de la asociación de datos
+
+
+![](imag_intro_slam/asociacion_datos.png)
+
+- En general la asociación entre observaciones y landmarks es desconocida, a causa de la incertidumbre en la posición y las medidas
+- Escoger la asociación equivocada puede tener consecuencias catastróficas
+
+
+---
+
+## SLAM como una red bayesiana
 
 ![](imag_intro_slam/SLAM_graph_model.png) <!-- .element: class="stretch" -->
 
@@ -79,8 +109,10 @@ $$
 
 ---
 
-## SLAM
-## EKF SLAM
+<!-- .slide: class="titulo" -->
+
+# SLAM <!-- .element: class="column half" -->
+## EKF SLAM  <!-- .element: class="column half" -->
 
 ---
 
@@ -117,8 +149,7 @@ Donde H y G son los *jacobianos*
 
 $$H_t=\frac{\partial h(\bar\mu_t)}{\partial x_t} \space \space G_t=\frac{\partial g(u_t,\mu_{t-1})}{\partial x_{t-1}}$$
 
-
-Las fórmulas van a ser prácticamente iguales, lo que cambia es que **tenemos  además la parte de los *landmarks***
+Las fórmulas son prácticamente iguales, cambia que **tenemos  además la parte de los *landmarks***
 
 ---
 
@@ -158,8 +189,50 @@ como se mantienen explícitamente las correlaciones, al **cerrar el ciclo** se a
 
 ---
 
-## SLAM 
-## SLAM con filtros de partículas
+## Victoria Park
+
+Un experimento clásico ([http://www-personal.acfr.usyd.edu.au/nebot/victoria_park.htm](http://www-personal.acfr.usyd.edu.au/nebot/victoria_park.htm))
+
+![](imag_intro_slam/victoria_park_vehicle.jpg) <!-- .element: class="column half" -->
+![](imag_intro_slam/victoria_park_landmarks.jpg) <!-- .element: class="column half" -->
+
+- El vehículo usa *dead reckoning* (*encoders* en las ruedas, IMUs) + laser + GPS para *ground truth*
+- *Landmarks*: los troncos de los árboles, detectados con el laser
+
+
+Notas:
+
+La explicación detallada de cómo se llevó a cabo el experimento y los algoritmos probados está en [http://www-personal.acfr.usyd.edu.au/nebot/publications/slam/IJRR_slam.htm](http://www-personal.acfr.usyd.edu.au/nebot/publications/slam/IJRR_slam.htm)
+
+---
+
+## Resultado del EKF 
+
+El resultado es razonablemente preciso, y el algoritmo es aplicable porque no hay un gran número de *landmarks*
+
+![](imag_intro_slam/mapa_ekf_victoria_park.png) <!-- .element: class="stretch" -->
+
+
+
+---
+
+## Limitaciones del EKF SLAM
+
+- El coste es 
+
+
+---
+
+Aplicabilidad del EKF SLAM:
+- demos de Andrew Davison
+- ARKit https://developer.apple.com/videos/play/wwdc2018/610/
+
+---
+
+<!-- .slide: class="titulo" -->
+
+# SLAM <!-- .element: class="column half" -->
+## SLAM con filtros de partículas  <!-- .element: class="column half" -->
 
 ---
 
@@ -182,7 +255,7 @@ Necesitaríamos un número enorme de partículas para cubrir adecuadamente un es
 ---
 
 
-Vamos a intentar aplicar algún truco para "reducir" la dimensionalidad. La clave va a estar en separar el problema en varias partes (cada una con mucho menos dimensiones)
+Vamos a intentar aplicar algún "truco" para **"reducir" la dimensionalidad**. La clave va a estar en separar el problema en varias partes (cada una con mucho menos dimensiones)
 
 ---
 
@@ -262,9 +335,31 @@ La extensión del algoritmo es bastante directa:
 
 ---
 
+## GMapping en ROS
+
+El algoritmo `gmapping` [integrado en ROS](http://wiki.ros.org/gmapping) es de tipo fastSLAM para rejillas de ocupación.
+
+Mejora (incluída también en FastSLAM 2.0): en el *sampling* las muestras no se obtienen solo de la función de movimiento sino que tienen en cuenta las observaciones. Así nos quedamos solo con las que concuerdan con la situación actual.
+
+![](imag_intro_slam/fastslam_2.0_samples.png)<!-- .element: class="stretch" -->
+
+Notas:
+
+- El algoritmo de *gmapping* se describe en detalle en "Giorgio Grisetti, Cyrill Stachniss, and Wolfram Burgard: Improved Techniques for Grid Mapping with Rao-Blackwellized Particle Filters, IEEE Transactions on Robotics, Volume 23, pages 34-46, 2007" [(pdf)](http://www2.informatik.uni-freiburg.de/~stachnis/pdf/grisetti07tro.pdf)
+- En "An Evaluation of 2D SLAM Techniques Available in Robot Operating System, 
+11th IEEE Int. Symp. on Safety, Security, and Rescue Robotics (SSRR 2013)" [(pdf)](https://www.researchgate.net/publication/258031685_An_Evaluation_of_2D_SLAM_Techniques_Available_in_Robot_Operating_System) podéis ver una comparación experimental entre diversos algoritmos de SLAM implementados en ROS.
+
+---
+
+Resultado del algoritmo en un entorno real. mapa de 250x250m, trayectoria de 1,75 Km
+
+
+
+
+
+---
+
 Cosas que faltan por ver (o quizá se pueden obviar)
 
 - El problema de la asociación de datos
 - Inicializar landmarks en los distintos algoritmos
-- FastSLAM 2.0 vs 1.0
-- Que el GMapping en realidad es un FastSLAM
