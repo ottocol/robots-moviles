@@ -697,6 +697,7 @@
 		document.body.style.width = pageWidth + 'px';
 		document.body.style.height = pageHeight + 'px';
 
+
 		// Make sure stretch elements fit on slide
 		layoutSlideContents( slideWidth, slideHeight );
 
@@ -1964,6 +1965,9 @@
 
 				var size = getComputedSlideSize();
 
+				//Remove <p> surrounding <img class="stretch">
+				removeParagraphsFromStretchedImages()
+	
 				// Layout the contents of the slides
 				layoutSlideContents( config.width, config.height );
 
@@ -5361,6 +5365,14 @@
 		}
 
 	};
+
+    function removeParagraphsFromStretchedImages() {
+    	toArray(dom.slides.querySelectorAll('section > p > .stretch')).forEach( 
+    		function( element ) {
+    		  element.parentNode.parentNode.replaceChild(element, element.parentNode)
+		    })
+    }
+
 
 
 	// --------------------------------------------------------------------//
