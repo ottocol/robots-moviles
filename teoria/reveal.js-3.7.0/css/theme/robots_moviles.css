@@ -270,3 +270,38 @@ body {
 @media print {
   .backgrounds {
     background-color: #fff; } }
+
+
+
+.reveal .backgrounds .titulo {
+  background: linear-gradient(to right, #7692ba 0%, #7692ba 50%, #ffffff 51%);
+}
+
+/* Columnas responsive. De http://adamkaplan.me/grid/ */
+
+.column {
+    float: left;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+  
+.column.full { width: 100%; }
+.column.two-thirds { width: 66.7%; }
+.column.half { width: 50%; }
+.column.third { width: 33.3%; }
+.column.fourth { width: 25%; }
+.column.flow-opposite { float: right; }  
+
+
+.clearfix:before,
+.clearfix:after {
+  content: " ";
+  display: table;
+  padding-top: 1em;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+    
