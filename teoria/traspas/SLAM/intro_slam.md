@@ -271,6 +271,15 @@ Apropiado para aplicaciones de **realidad aumentada** (AR) donde el rango de mov
 
 *keypoint matching* + triangulación = nube de puntos dispersa
 
+
+---
+
+## Otro ejemplo
+
+Andrew Davison de Oxford lleva trabajando bastantes años en el tema
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mimAWVm-0qA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ---
 
 <!-- .slide: class="titulo" -->
