@@ -355,14 +355,15 @@ $$ P(x_{1:t}|z_{1:t}, u_{0,t-1}) \prod_{i=1}^M P(l_i|x_{1:t},z_{1:t})$$ (al ser 
 
 - En FastSLAM las correlaciones se mantienen a través de las partículas, que son distintas hipótesis sobre la trayectoria. Cuando se cierra el ciclo se reduce la incertidumbre descartando las que no "cuadran" con las medidas de los sensores.
 
-
 ---
+
 
 <iframe width="569" height="427" src="https://www.youtube.com/embed/jBPZIU6AIS0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Problema: como solo podemos mantener un número limitado, se "perderán" muchas trayectorias posibles, si hay pocas partículas al final acaban teniendo todas una "historia común" en algún punto (no podemos cerrar ciclos muy largos).
 
 ---
+
 
 ## FastSLAM para rejillas de ocupación
 
@@ -402,6 +403,15 @@ Notas:
 ![](imag_intro_slam/grid_mapping_result.png)
 
 ---
+
+## Resumiendo: FastSLAM vs. EKF
+
+- La **complejidad** de FastSLAM es  menor que la del EKF: $O(M \log K)$, con $M$ número de partículas y $K$ de landmarks, frente a $O(K^2)$
+- FastSLAM **no puede cerrar ciclos tan largos** como el EKF, debido a la pérdida de variabilidad en las partículas
+
+
+---
+
 
 ## Bibliografía
 
