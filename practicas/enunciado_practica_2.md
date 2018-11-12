@@ -1,11 +1,21 @@
 
 
 
-En esta práctica vamos a programar un robot móvil para que realice una tarea compleja que implique navegar por el entorno realizando una serie de subtareas. La tarea puede ser la que queráis: por ejemplo 
+En esta práctica vamos a programar un robot móvil para que realice una tarea compleja que implique navegar por el entorno realizando una serie de subtareas. La tarea puede ser la que queráis, por ejemplo:
 
-//TO-DO: ejemplos de tareas y condiciones que deben cumplir para ser evaluables
+- Patrullar por un edificio pasando por diversos puntos y detectando posibles "intrusos"
+- Navegar por una habitación detectando objetos tirados por el suelo y recogiéndolos si el robot tiene un brazo capaz de ello
+- Navegar por un entorno en que el robot va detectando señales (por ejemplo flechas) que le van indicando a dónde ir
+- Intentar localizar una pelota en el suelo e irla empujando para marcar gol en una portería
 
-En robótica se usan distintos formalismos para especificar tareas compuestas de secuencias de subtareas, subtareas que se ejecutan solo si 
+> NOTA: según sea la tarea que diseñéis es posible que no la podáis probar más que en simulación. Se valorarán las pruebas en los Turtlebot reales (y además son más divertidas que las simulaciones :)) pero también podéis usar otros modelos de robots distintos y simplemente simularlos en ROS.
+
+La tarea puede ser muy diversa pero en general vais a necesitar tres tipos de elementos para implementarla:
+
+- Un formalismo para especificar **cómo se coordinan las subtareas**: por ejemplo habrá subtareas que se deberán realizar en una secuencia ("primero ve al *waypoint* 1 y luego al 2"), otras serán condicionales ("navega aleatoriamente hasta que te encuentres una pelota"), otras tareas serán en paralelo... En robótica para coordinar este tipo de subtareas se pueden usar varios mecanismos, como las máquinas de estados finitos y los *behavior trees*.
+- Algunas subtareas pueden requerir ***navegar* a puntos concretos del mapa** (por ejemplo una tarea de vigilancia). Para eso podéis usar el *stack* de navegación de ROS que se explica en la sección siguiente.   
+- Otras subtareas serán de **detección de condiciones** (por ejemplo, "si estoy en un pasillo navego hacia adelante hasta que se acabe", o "buscar una pelota de color rojo"). Para estas tendréis que hacer uso de los sensores del robot.
+
 
 ## El *stack* de navegación de ROS
 
@@ -34,7 +44,6 @@ roslaunch turtlebot_rviz_launchers view_navigation.launch
 
 Una vez puesto todo en marcha, puedes probar en `rviz` a fijar un destino para el robot. Clica en el botón que aparece en la barra superior llamado `2D Nav Goal`. Luego clica en el punto del mapa al que quieres que se mueva el robot y opcionalmente arrastra para indicar la orientación final del robot. Si hay un camino factible el robot debería seguirlo y moverse hasta el destino.
 
-
 > NOTA: ya veremos en clase de teoría con más detalle cómo funciona el *stack* de navegación. De momento podéis observar en los nodos de rviz (panel izquierdo) que hay un `Local Planning` (evitar obstáculos basándose en lo que detectan los sensores) y un `Global Planning` (planificar la mejor trayectoria según el mapa, sin chocar con los obstáculos reflejados en él)
 
 Si quieres usar un mundo propio tendrás que hacerlo de este modo:
@@ -57,7 +66,7 @@ roslaunch turtlebot_stage turtlebot_in_stage.launch
 
 ## Especificación de tareas con Behavior Trees
 
-
+Aunque podríamos especificar cómo se van coordinando las subtareas simplemente con las construcciones habituales de nuestro lenguaje de programación (`if else`, `while`,...) en general esta forma no se suele recomendar por generar código demasiado *ad hoc*, "embrollado" y poco reutilizable. En su lugar en robótica se usan otros formalismos que nos permiten encapsular las tareas de forma más modular y 
 
 ## Documentación a entregar
 
@@ -73,10 +82,12 @@ La documentación de la práctica es una parte muy importante en la puntuacio�
 
 ## Baremo
 
-- Documentar **todos** los experimentos, aun los que no funcionen
+- Como es lógico la nota estará relacionada con la dificultad de la tarea pero también con la documentación de la práctica. Debéis no solo documentar la implementación que habéis hecho sino también **todos** los experimentos en la simulación y con el robot real (¡aun los que no funcionen!, en estos podéis analizar qué es lo que no ha funcionado y cómo lo pretendéis resolver)
+- Para sacar hasta un 6 podéis implementar la tarea en ROS simplemente usando C++/Python sin necesidad de usar ningún formalismo adicional como los árboles.
+- Para una nota hasta el 7.5, usad *behavior trees* para modelar las subtareas 
 - Para el 8 en adelante, alguna de estas ideas (u otras que podéis proponer a los profesores) 
-    - implementar también máquinas de estados finitos, por ejemplo con SMACH o FlexBE. Comparar ambos enfoques
-    - implementar tareas que hagan uso de visión: colores, formas, reconocimiento de objetos 
+    - Implementar *ADEMÁS* del *behavior tree* una máquina de estados finitos, por ejemplo con SMACH o FlexBE. Comparar ambos enfoques indicando cuál os parece más sencillo/intuitivo y si creéis que vuestras conclusiones se pueden extender a cualquier tipo de tarea o según los casos sería mejor un enfoque u otro.
+    - Implementar tareas que hagan uso de visión: colores, formas, reconocimiento de objetos. Podéis usar cualquier paquete ROS/librería de terceros que encontréis. La nota dependerá de la dificultad de uso y también de la experimentación realizada. 
 
 ## Normas de entrega de la práctica:
 
