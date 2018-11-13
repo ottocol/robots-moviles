@@ -14,7 +14,7 @@ La tarea puede ser muy diversa pero en general vais a necesitar tres tipos de el
 
 - Un formalismo para especificar **cómo se coordinan las subtareas**: por ejemplo habrá subtareas que se deberán realizar en una secuencia ("primero ve al *waypoint* 1 y luego al 2"), otras serán condicionales ("navega aleatoriamente hasta que te encuentres una pelota"), otras tareas serán en paralelo... En robótica para coordinar este tipo de subtareas se pueden usar varios mecanismos, como las máquinas de estados finitos y los *behavior trees*.
 - Algunas subtareas pueden requerir ***navegar* a puntos concretos del mapa** (por ejemplo una tarea de vigilancia). Para eso podéis usar el *stack* de navegación de ROS que se explica en la sección siguiente.   
-- Otras subtareas serán de **detección de condiciones** (por ejemplo, "si estoy en un pasillo navego hacia adelante hasta que se acabe", o "buscar una pelota de color rojo"). Para estas tendréis que hacer uso de los sensores del robot.
+- Otras subtareas serán de **detección de condiciones** (por ejemplo, "detectar si estoy en un pasillo", o "buscar una pelota de color rojo"). Para estas tendréis que hacer uso de los sensores del robot.
 
 
 ## El *stack* de navegación de ROS
@@ -66,32 +66,39 @@ roslaunch turtlebot_stage turtlebot_in_stage.launch
 
 ## Especificación de tareas con Behavior Trees
 
-Aunque podríamos especificar cómo se van coordinando las subtareas simplemente con las construcciones habituales de nuestro lenguaje de programación (`if else`, `while`,...) en general esta forma no se suele recomendar por generar código demasiado *ad hoc*, "embrollado" y poco reutilizable. En su lugar en robótica se usan otros formalismos que nos permiten encapsular las tareas de forma más modular y 
+Aunque podríamos especificar cómo se van coordinando las subtareas simplemente con las construcciones habituales de nuestro lenguaje de programación (`if else`, `while`,...) en general esta forma no se suele recomendar por generar código demasiado *ad hoc*, "embrollado" y poco reutilizable. En su lugar ese pueden usar otros formalismos que nos permitan encapsular las tareas de forma más modular, reutilizable y entendible. Los dos formalismos más conocidos de este tipo son las máquinas de estados finitos y los *behavior trees*. Vamos a usar estos últimos en esta práctica, aunque también podéis implementar las primeras para comparar ambos enfoques.
 
-## Documentación a entregar
 
-La documentación de la práctica es una parte muy importante en la puntuación final. Se debe entregar una documentación (cualquier formato: PDF, HTML, etc.) con los siguientes puntos:
+## Entrega de la práctica
+
+### Material a entregar
+
+La documentación de la práctica es una parte muy importante en la puntuación final. Se debe entregar documentación (en cualquier formato: PDF, HTML, etc.) con los siguientes puntos:
 
 1. Indice del contenido de la práctica 
 2. Contenido de la práctica: 
     - Explicación de la tarea que se quiere abordar
-    - *Behavior tree* resultante y descripción general de su comportamiento
-    - Descripción de cada uno de los nodos, detallando en su caso los algoritmos/métodos que haya usado cada uno de ellos: por ejemplo si un nodo busca objetos de color azul decir cómo lo habéis hecho.
+    - Si usáis *Behavior trees* o máquinas de estados finitos
+       - Esquema global del árbol o máquina de estados y descripción general de su comportamiento
+       - Descripción de cada uno de los nodos, detallando en su caso los algoritmos/métodos que haya usado cada uno de ellos: por ejemplo si un nodo busca objetos de color azul decir cómo lo habéis hecho.
+    - Si no usáis árboles/máquinas de estados, explicad cómo se combinan todas las funciones/clases/módulos de vuestro código para realizar la tarea
     - Experimentos realizados en simulación y si es posible con el robot real
 3. Conclusiones/discusión.
 
-## Baremo
+Además de la documentación anterior también debéis entregar todo el **código fuente** que hayáis realizado. En el código debéis incluir comentarios indicando qué hace cada clase y cada método o función.
 
-- Como es lógico la nota estará relacionada con la dificultad de la tarea pero también con la documentación de la práctica. Debéis no solo documentar la implementación que habéis hecho sino también **todos** los experimentos en la simulación y con el robot real (¡aun los que no funcionen!, en estos podéis analizar qué es lo que no ha funcionado y cómo lo pretendéis resolver)
+### Baremo
+
+- Como es lógico la nota estará relacionada con la dificultad de la tarea pero también con la documentación de la práctica. Debéis no solo documentar la implementación que habéis hecho sino también **todos** los experimentos realizados en simulación y con el robot real (¡aun los que no funcionen!, en estos podéis analizar qué es lo que no ha funcionado y cómo lo pretendéis resolver)
 - Para sacar hasta un 6 podéis implementar la tarea en ROS simplemente usando C++/Python sin necesidad de usar ningún formalismo adicional como los árboles.
 - Para una nota hasta el 7.5, usad *behavior trees* para modelar las subtareas 
 - Para el 8 en adelante, alguna de estas ideas (u otras que podéis proponer a los profesores) 
-    - Implementar *ADEMÁS* del *behavior tree* una máquina de estados finitos, por ejemplo con SMACH o FlexBE. Comparar ambos enfoques indicando cuál os parece más sencillo/intuitivo y si creéis que vuestras conclusiones se pueden extender a cualquier tipo de tarea o según los casos sería mejor un enfoque u otro.
+    - Implementar *ADEMÁS* del *behavior tree* una máquina de estados finitos, por ejemplo con [SMACH](http://wiki.ros.org/smach), [FlexBE](http://wiki.ros.org/flexbe) u otros paquetes de ROS. Comparar ambos enfoques indicando cuál os parece más sencillo/intuitivo y si creéis que vuestras conclusiones se pueden extender a cualquier tipo de tarea o según los casos sería mejor un enfoque u otro.
     - Implementar tareas que hagan uso de visión: colores, formas, reconocimiento de objetos. Podéis usar cualquier paquete ROS/librería de terceros que encontréis. La nota dependerá de la dificultad de uso y también de la experimentación realizada. 
 
-## Normas de entrega de la práctica:
+### Plazo y procedimiento de entrega
 
-- La práctica se entregará antes de las 24 horas del domingo 23 de diciembre de 2018.
-- La entrega se realizará a través del Campus Virtual de la Universidad de Alicante. Se habilitará una entrega específica en el CV para subir el código fuente y la memoria asociada a la práctica.
+- La práctica se entregará **antes de las 24 horas del domingo 23 de diciembre de 2018**.
+- La entrega se realizará a través del UACloud de la Universidad de Alicante. Se habilitará una entrega específica para subir el código fuente y la memoria asociada a la práctica.
       
 
