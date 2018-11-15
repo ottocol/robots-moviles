@@ -1,11 +1,9 @@
 
 
----
-title: Práctica 2. Programación de tareas en robots móviles
-date: noviembre 2018
-author: Otto Colomina Pardo, Sergio Orts Escolano
+#Práctica 2. Programación de tareas en robots móviles
+##Noviembre 2018
+##Otto Colomina Pardo, Sergio Orts Escolano
 
----
 
 
 En esta práctica vamos a programar un robot móvil para que realice una tarea compleja que implique navegar por el entorno realizando una serie de subtareas. La tarea puede ser la que queráis, por ejemplo:
@@ -99,6 +97,7 @@ Para instalar la librería, **moverse al `src` del *workspace*** de ROS y allí 
 
 ```bash
 #de momento usamos este repositorio para que el código nos funcione en el laboratorio
+#nota: no hay versión específica para kinetic, pero esta funciona
 git clone -b indigo-devel https://github.com/ottocol/pi_trees/
 cd ..
 catkin_make
@@ -171,10 +170,9 @@ Además de la documentación anterior también debéis entregar todo el **códig
 ### Baremo
 
 - Como es lógico la nota estará relacionada con la dificultad de la tarea pero también con la documentación de la práctica. Debéis no solo documentar la implementación que habéis hecho sino también **todos** los experimentos realizados en simulación y con el robot real (¡aun los que no funcionen!, en estos podéis analizar qué es lo que no ha funcionado y cómo lo pretendéis resolver)
-- Para sacar hasta un 6 podéis implementar la tarea en ROS simplemente usando C++/Python sin necesidad de usar ningún formalismo adicional como los árboles.
-- Para una nota hasta el 8, usad *behavior trees* para modelar las subtareas 
+- Para sacar hasta un 6 podéis implementar la tarea en ROS simplemente usando C++/Python sin necesidad de usar ningún formalismo adicional.
+- Para una nota hasta el 8, usad *behavior trees*  o máquinas de estados finitos para modelar las subtareas 
 - Para una nota superior a 8, alguna de estas ideas (u otras que podéis proponer a los profesores) 
-    - Implementar *ADEMÁS* del *behavior tree* una máquina de estados finitos, por ejemplo con [SMACH](http://wiki.ros.org/smach), [FlexBE](http://wiki.ros.org/flexbe) u otros paquetes de ROS. Comparar ambos enfoques indicando cuál os parece más sencillo/intuitivo y si creéis que vuestras conclusiones se pueden extender a cualquier tipo de tarea o según los casos sería mejor un enfoque u otro.
     - Implementar tareas que hagan uso de visión: colores, formas, reconocimiento de objetos. Podéis usar cualquier paquete ROS/librería de terceros que encontréis. La nota dependerá de la dificultad de uso y también de la experimentación realizada. 
 
 ### Plazo y procedimiento de entrega
