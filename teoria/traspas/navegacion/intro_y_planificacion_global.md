@@ -21,7 +21,7 @@
 
 Conjunto de técnicas y algoritmos necesarios para que un robot móvil pueda llegar hasta su destino por el **camino más corto** posible y **sin chocar con los obstáculos**
 
-![](imag/path_planning.png)
+![](imag/path_planning.png) <!-- .element: class="stretch" -->
 
 ---
 

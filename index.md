@@ -2,4 +2,11 @@
 
 ## Teoría
 
-- Introducción a SLAM, EKF y filtros de partículas [traspas](teoria/traspas/SLAM/intro_slam_traspas.html)[documento](teoria/traspas/SLAM/intro_slam.html)
+### Tema 5. SLAM: Simultaneous Localization And Mapping
+
+- Introducción a SLAM, EKF y filtros de partículas [[traspas](teoria/traspas/SLAM/intro_slam_traspas.html)] [[documento](teoria/traspas/SLAM/intro_slam.html)]
+- SLAM basado en grafos [[traspas](teoria/traspas/SLAM/graph_based_slam_traspas.html)] [[documento](teoria/traspas/SLAM/graph_based_slam.html)]
+
+### Tema 6. Navegación y planificación de trayectorias
+
+- Introducción a la navegación. Planificación de trayectorias [[traspas](teoria/traspas/navegacion/intro_y_planificacion_global_traspas.html)] [[documento](teoria/traspas/SLAM/intro_y_planificacion_global.html)]
