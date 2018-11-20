@@ -36,11 +36,45 @@ Conjunto de técnicas y algoritmos necesarios para que un robot móvil pueda lle
 
 ---
 
-<!-- .element: class="caption" --> 
-Tomada del curso ["Introduction to Mobile Robotics"](http://ais.informatik.uni-freiburg.de/teaching/ss17/robotics/) de Wolfram Burgard 
+## Robótica clásica (años 70)
+
+Paradigma *deliberativo* o *jerárquico* : énfasis sobre todo en la **planificación global**
+
+![](imag/shakey_triple.png) <!-- .element: class="column half" -->
+![](imag/paradigma_jerarquico.png) <!-- .element: class="column half" -->
+
+<div class="caption column full">Izquierda: El robot *shakey* (1966-1972), primer robot móvil capaz de planificar sus tareas. Derecha: el ciclo de procesamiento típico del paradigma jerárquico. La información de los sensores se usa sobre todo para elaborar un <strong>plan</strong> </div>
+
+
+Notas: 
+
+En el contexto de los experimentos con *shakey* se desarrollaron algoritmos que aún hoy se usan en diversos campos, como el A* en búsqueda de caminos, la transformada de Hough en visión artificial y el método del grafo de visibilidad que veremos un poco más adelante en este mismo tema.
+
+---
+
+## Robótica reactiva (años 80)
+
+"Reacción" a la robótica clásica. **Énfasis en los sensores**, se elimina la planificación global.
+
+ Izquierda: Rodney Brooks, uno de los "popes" de la robótica reactiva. A la derecha, el bucle de control clásico en este paradigma: nótese que no hay planificación  
+ <!-- .element: class="caption" -->
+
+![](imag/baxter_and_rodney_brooks.jpg) <!-- .element: class="column half" -->
+![](imag/paradigma_reactivo.png) <!-- .element: class="column half" -->
+
+
+
+---
+
+## Robótica en la actualidad
+
+**Paradigma híbrido**: se combina la planificación global (proceso de "baja frecuencia") con la local (se ejecuta continuamente)
+
+
+
+<div class="caption">Tomada del curso <a href="http://ais.informatik.uni-freiburg.de/teaching/ss17/robotics/">Introduction to Mobile Robotics"</a> de Wolfram Burgard</div>   
 
 ![](imag/2_layer_arch.png) <!-- .element class="stretch" -->
-
 
 
 ---
@@ -152,29 +186,53 @@ Grafo cuyos nodos son los vértices de los polígonos, y los arcos las conexione
 
 ![](imag/grafo_visibilidad.png) <!-- .element: class="stretch" -->
 
+---
+
+## Diagramas de Voronoi
+
+Formado maximizando la distancia mínima a los obstáculos (todos los puntos con la misma distancia mínima a dos o más objetos)
+
+![](imag/Voronoi-diagram-in-a-navigation-map.png) <!-- .element: class="stretch" -->
+
+- No nos va a dar los caminos más cortos
+- Al maximizar la distancia a los objetos, maximizamos la seguridad 
 
 ---
 
 ## Algoritmos de búsqueda de camino más corto
 
-- Algoritmos clásicos de búsqueda en grafos el más típico es **Dijkstra**
-- Guiados por heurísticas: el más usado es A*
+- Algoritmos clásicos de búsqueda en grafos: el más típico es **Dijkstra**
+- Guiados por heurísticas: el más usado es `A*`, aunque hay otros similares, como `D*`
 
 ---
 
 ## A*
 
-- Función de evaluación para cada nodo: $f(n) = g(n) + h(n)$
+- La búsqueda se guía por un $f(n)$ para cada nodo: $f(n) = g(n) + h(n)$, siempre expandimos por el nodo de menor $f(n)$
     + $g(n)$: coste del camino ya recorrido
-    + $h(n)$ una heurística admisible (una estimación "optimista") del camino que queda 
+    + $h(n)$ una heurística *admisible* (== una estimación "optimista") para el camino que queda
 
+Demo: [http://qiao.github.io/PathFinding.js/visual/](http://qiao.github.io/PathFinding.js/visual/)
+
+---
+
+## Pseudocódigo A*
+
+![](imag/8nAs8.png) <!-- .element: class="stretch" -->
 
 ---
 
 ## Otros algoritmos: D* y D* lite
 
 - Similares a A*, aunque parten del destino en lugar del origen
-- Pueden *replanifica* trayectorias: pueden "reparar" la trayectoria de modo incremental si hay cambios en el grafo 
+- Pueden *replanificar* trayectorias: pueden "reparar" la trayectoria de modo incremental si hay cambios en el grafo 
+
+---
+
+- Los *rover* de Marte necesitan autonomía dado el retardo de la señal Tierra-Marte (entre 3-22 min) 
+- Usan un mapa de costes de rejilla y una versión modificada del algoritmo `D*` para calcular el camino más corto. 
+
+![](imag/mars_rover.png) <!-- .element: class="stretch" -->
 
 
 ---
@@ -184,5 +242,3 @@ Grafo cuyos nodos son los vértices de los polígonos, y los arcos las conexione
 Paquete `global_planner`, implementa Dijkstra y A*, seleccionables cambiando el parámetro `use_dijkstra`
 
 ---
-
-[http://qiao.github.io/PathFinding.js/visual/](http://qiao.github.io/PathFinding.js/visual/)
