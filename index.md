@@ -13,4 +13,5 @@
 
 ## Prácticas
 
-- [Workspace para test de navegación](practicas/catkin_ws_test_nav.zip)
+-[Enunciado de la práctica 2](practicas/enunciado_practica_2.html) 
+-[Workspace para test de navegación](practicas/catkin_ws_test_nav.zip)
