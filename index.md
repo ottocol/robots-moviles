@@ -10,6 +10,7 @@
 ### Tema 6. Navegación y planificación de trayectorias
 
 - Introducción a la navegación. Planificación de trayectorias [[traspas](teoria/traspas/navegacion/intro_y_planificacion_global_traspas.html)] [[traspas pdf](teoria/traspas/navegacion/intro_y_planificacion_global_traspas.pdf)] [[documento](teoria/traspas/navegacion/intro_y_planificacion_global.html)]
+- Robótica reactiva y basada en comportamientos [[traspas](teoria/traspas/navegacion/conductas.pdf)]
 
 ## Prácticas
 
