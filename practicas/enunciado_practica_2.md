@@ -91,7 +91,7 @@ Son estructuras de datos en forma de árbol en que los nodos representan las sub
 
 ### *Behavior trees* en ROS
 
-Hay varias librerías de *behavior trees* que incluyen integración con ROS. Aquí vamos a usar [`pi_trees`](https://github.com/stonier/py_trees_ros) como ejemplo, pero si queréis podéis emplear otra. 
+Hay varias librerías de *behavior trees* que incluyen integración con ROS. Aquí vamos a usar [`pi_trees`](https://github.com/pirobot/pi_trees) como ejemplo, pero si queréis podéis emplear otra. 
 
 Para instalar la librería, **moverse al `src` del *workspace*** de ROS y allí hacer
 
