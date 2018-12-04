@@ -17,3 +17,4 @@
 
 -[Enunciado de la práctica 2](practicas/enunciado_practica_2.html) 
 -[Workspace para test de navegación](practicas/catkin_ws_test_nav.zip)
+-[Documentación y ejemplos](practicas/pi_trees.pdf) de la librería `pi_trees`
