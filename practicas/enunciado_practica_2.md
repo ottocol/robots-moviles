@@ -177,6 +177,6 @@ Además de la documentación anterior también debéis entregar todo el **códig
 
 ### Plazo y procedimiento de entrega
 
-- La práctica se entregará **antes de las 24 horas del domingo 23 de diciembre de 2018**.
+- La práctica se entregará **antes de las 24 horas del martes 15 de enero de 2019**.
 - La entrega se realizará a través del UACloud de la Universidad de Alicante. Se habilitará una entrega específica para subir el código fuente y la memoria asociada a la práctica.
 
