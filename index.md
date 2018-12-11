@@ -13,6 +13,10 @@
 - Robótica reactiva y basada en comportamientos [[traspas](teoria/traspas/navegacion/conductas.pdf)]
 - Evitación de obstáculos [[traspas](teoria/traspas/navegacion/obstaculos.pdf)]
 
+## Tema 7. Aplicaciones de la robótica móvil
+
+- [Transparencias](teoria/traspas/aplicaciones.pdf)
+
 ## Prácticas
 
 - [Turnos para usar los Turtlebot](practicas/turnos_turtlebot.pdf) 
