@@ -73,7 +73,9 @@ roslaunch turtlebot_stage turtlebot_in_stage.launch
 
 ## Especificación de tareas con Behavior Trees
 
-Aunque podríamos especificar cómo se van coordinando las subtareas simplemente con las construcciones habituales de nuestro lenguaje de programación (`if else`, `while`,...) en general esta forma no se suele recomendar por generar código demasiado *ad hoc*, "embrollado" y poco reutilizable. En su lugar ese pueden usar otros formalismos que nos permitan encapsular las tareas de forma más modular, reutilizable y entendible. Los dos formalismos más conocidos de este tipo son las máquinas de estados finitos y los *behavior trees*. Vamos a usar estos últimos en esta práctica, aunque también podéis implementar las primeras para comparar ambos enfoques.
+> **ACTUALIZACION IMPORTANTE**: la librería que se describe en este apartado tiene algunos *bugs* por lo que **no es recomendable su uso en la práctica**. No obstante se deja este apartado porque es interesante saber cómo funcionan los *behavior trees*. 
+
+Aunque podríamos especificar cómo se van coordinando las subtareas simplemente con las construcciones habituales de nuestro lenguaje de programación (`if else`, `while`,...) en general esta forma no se suele recomendar por generar código demasiado *ad hoc*, "embrollado" y poco reutilizable. En su lugar ese pueden usar otros formalismos que nos permitan encapsular las tareas de forma más modular, reutilizable y entendible. Los dos formalismos más conocidos de este tipo son las máquinas de estados finitos y los *behavior trees*. 
 
 ### Introducción básica a los *behavior trees*
 
@@ -169,11 +171,10 @@ Además de la documentación anterior también debéis entregar todo el **códig
 
 ### Baremo
 
-- Como es lógico la nota estará relacionada con la dificultad de la tarea pero también con la documentación de la práctica. Debéis no solo documentar la implementación que habéis hecho sino también **todos** los experimentos realizados en simulación y con el robot real (¡aun los que no funcionen!, en estos podéis analizar qué es lo que no ha funcionado y cómo lo pretendéis resolver)
-- Para sacar hasta un 6 podéis implementar la tarea en ROS simplemente usando C++/Python sin necesidad de usar ningún formalismo adicional.
-- Para una nota hasta el 8, usad *behavior trees*  o máquinas de estados finitos para modelar las subtareas 
-- Para una nota superior a 8, alguna de estas ideas (u otras que podéis proponer a los profesores) 
+- Como es lógico la nota estará relacionada con la dificultad de la tarea pero también con la documentación de la práctica. Debéis no solo documentar la implementación que habéis hecho sino también **todos** los experimentos realizados en simulación y con el robot real (¡aun los que no funcionen!, en estos podéis analizar qué es lo que no ha funcionado y cómo lo pretendéis resolver).  
+- Para una nota superior a 8, deberíais implementar alguna de estas ideas (u otras que podéis proponer a los profesores) 
     - Implementar tareas que hagan uso de visión: colores, formas, reconocimiento de objetos. Podéis usar cualquier paquete ROS/librería de terceros que encontréis. La nota dependerá de la dificultad de uso y también de la experimentación realizada. 
+    - Usar alguna librería de máquinas de estados finitos, como [FlexBE](http://wiki.ros.org/flexbe) o [SMACH](http://wiki.ros.org/smach) 
 
 ### Plazo y procedimiento de entrega
 
